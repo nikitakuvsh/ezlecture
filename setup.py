@@ -2,16 +2,17 @@ import os
 import subprocess
 import sys
 import platform
+from time import sleep
 
 def run_command(command, shell=True):
-    print(f"\n⚙️  Выполняю: {command}")
+    print(f"\n⚙️ {command}")
     result = subprocess.run(command, shell=shell)
     if result.returncode != 0:
         print(f"❌ Ошибка при выполнении: {command}")
         sys.exit(1)
 
 def main():
-    print("🔧 Установка окружения для проекта ezotmetka...\n")
+    print("🔧 Установка окружения...\n")
 
     run_command(f"{sys.executable} -m venv venv")
 
@@ -35,8 +36,7 @@ def main():
     run_command(f"{python_path} -m playwright install")
 
     print("\n🎉 УСТАНОВКА ПРОШЛА УСПЕШНО")
-    print("ЧТОБЫ ЗАПУСТИТЬ ПРИЛОЖЕНИЕ ВВЕДИ: python main.py")
-    print(f"   {python_path} main.py\n")
+    run_command("python main.py")
 
 if __name__ == "__main__":
     main()
