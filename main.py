@@ -9,6 +9,7 @@ from colorama import Fore, Back, Style
 import os
 from dotenv import load_dotenv, set_key
 import webbrowser
+from datetime import datetime
 
 load_dotenv()
 
@@ -38,7 +39,10 @@ def auth_and_parse():
 
         try:
             page.wait_for_selector('a.sc-djarn2-0.csPclf', timeout=15000)
-            print(Fore.GREEN + 'Succes auth!')
+            print(Fore.GREEN + 'Succes auth!' + Style.RESET_ALL)
+            current_datetime = datetime.now()
+            if current_datetime.month < 10: print(f"Today {current_datetime.day}.0{current_datetime.month}.{current_datetime.year}")
+            else: print(f"Today {current_datetime.day}.{current_datetime.month}.{current_datetime.year}")
 
             page.goto("https://e.mospolytech.ru/#/schedule/current", wait_until="networkidle")
             print(Style.RESET_ALL + 'processing')
@@ -67,8 +71,10 @@ def auth_and_parse():
             print(Fore.RED + f"Auth failed with error: {error}")
 
         browser.close()
+        sleep(50)
         try:
-            webbrowser.open_new('https://nikitakuvsh.netlify.app/')
+            webbrowser.open_new('https://google.com')
+            sleep(3)
             for link in array_links:
                 webbrowser.open_new_tab(link)
                 sleep(5)
