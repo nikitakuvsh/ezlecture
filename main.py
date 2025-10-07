@@ -61,7 +61,7 @@ def parse_calendar(page):
     print(f"Сегодня {current_datetime.strftime('%d.%m.%Y')} {weekday.get(current_index_date, None)}")
 
     page.goto("https://e.mospolytech.ru/#/schedule/current", wait_until="networkidle")
-    print("Парсим данные")
+    print("\nПарсим данные")
     for _ in tqdm.tqdm(range(10)):
         sleep(0.35)
 
@@ -87,7 +87,7 @@ def parse_calendar(page):
         print(Fore.RED + "Я не вижу ни одной ссылки :(")
         return None
 
-    return array_links, current_index_date
+    return array_links
 
 def open_links(array_links):
     if array_links:
