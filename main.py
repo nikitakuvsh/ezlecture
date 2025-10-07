@@ -61,7 +61,7 @@ def parse_calendar(page):
     print(f"Сегодня {current_datetime.strftime('%d.%m.%Y')} {weekday.get(current_index_date, None)}")
 
     page.goto("https://e.mospolytech.ru/#/schedule/current", wait_until="networkidle")
-    print('Парсим данные')
+    print("Парсим данные")
     for _ in tqdm.tqdm(range(10)):
         sleep(0.35)
 
@@ -108,7 +108,8 @@ def app():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False, slow_mo=50)
         page = browser.new_page()
-
+        page.goto("https://e.mospolytech.ru/#/schedule/current", wait_until="networkidle")
+            
         login_lk(page, login, password)
         array_links = parse_calendar(page)
         browser.close()
