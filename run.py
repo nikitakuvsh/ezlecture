@@ -25,9 +25,7 @@ def main():
     # На Windows активировать среду напрямую нельзя, просто используем python из venv
     result = subprocess.run([python_path, "main.py"], shell=True)
 
-    if result.returncode == 0:
-        print("\n🎉 Скрипт успешно выполнен!")
-    else:
+    if result.returncode != 0:
         print("\n❌ Ошибка при запуске main.py")
 
 if __name__ == "__main__":
