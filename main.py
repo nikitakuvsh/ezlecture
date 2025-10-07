@@ -81,16 +81,15 @@ def parse_calendar(page):
         if a_tag and a_tag["href"] != "https://online.mospolytech.ru/":
             array_links.append(a_tag["href"])
 
-    if array_links:
-        print(Fore.GREEN + f'Найдено ссылок: {len(array_links)}')
-    else:
+    if not array_links:
         print(Fore.RED + "Я не вижу ни одной ссылки :(")
         return None
 
     return array_links
 
 def open_links(array_links):
-    if array_links:
+    if array_links and len(array_links) > 0:
+        print("Подключаюсь к лекциям...")
         try:
             webbrowser.open_new('https://google.com')
             sleep(3)
@@ -103,14 +102,14 @@ def open_links(array_links):
 
 def app():
     tprint("EZ LECTURE")
-    login, password = auth_input()
+    mospolytech_login, mospolytech_password = auth_input()
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False, slow_mo=50)
         page = browser.new_page()
         page.goto("https://e.mospolytech.ru/#/schedule/current", wait_until="networkidle")
             
-        login_lk(page, login, password)
+        login_lk(page, mospolytech_login, mospolytech_password)
         array_links = parse_calendar(page)
         browser.close()
         open_links(array_links)
