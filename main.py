@@ -47,7 +47,7 @@ def login_lk(page, login, password):
 
 def parse_calendar(page):
     current_datetime = datetime.now()
-    current_index_date = current_datetime.weekday() - 2
+    current_index_date = current_datetime.weekday()
 
     weekday = {
         0: 'Понедельник',
